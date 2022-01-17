@@ -1,0 +1,35 @@
+type Chat {
+  id: String!
+  twitch: ChatTwitch!
+  timestamp: Time!
+  content: String!
+  badges: [ChatBadge!]!
+  emotes: [ChatEmote!]!
+}
+
+type ChatTwitch {
+  id: String!
+  login: String!
+  display_name: String!
+  color: String!
+}
+
+type ChatBadge {
+  name: String!
+  urls: [String!]!
+}
+
+type ChatEmote {
+  name: String!
+  urls: [String!]!
+}
+
+extend type Query {
+  messages(
+    vod_id: String!
+    limit: Int!
+    page: Int!
+    after: Time!
+    before: Time!
+  ): [Chat!]
+}

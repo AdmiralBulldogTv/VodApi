@@ -1,0 +1,23 @@
+type User {
+  id: String!
+  twitch: UserTwitch!
+
+  vods(
+    limit: Int!
+    page: Int!
+    search: String
+    after: Time
+    before: Time
+  ): [Vod!]! @goField(forceResolver: true)
+}
+
+type UserTwitch {
+  id: String!
+  login: String!
+  display_name: String!
+  profile_picture: String!
+}
+
+extend type Query {
+  user(id: String!): User
+}

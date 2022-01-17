@@ -1,0 +1,51 @@
+type Vod {
+  id: String!
+  user_id: String!
+  title: String!
+  category: [VodCategory!]!
+  vod_state: VodState!
+  vod_visibility: VodVisibility!
+  variants: [VodVariant!]!
+  started_at: Time!
+  ended_at: Time
+
+  user: User! @goField(forceResolver: true)
+}
+
+type VodCategory {
+  timestamp: Time!
+  name: String!
+  id: String!
+  url: String!
+}
+
+type VodVariant {
+  name: String!
+  width: Int!
+  height: Int!
+  fps: Int!
+  bitrate: Int!
+  ready: Boolean!
+}
+
+enum VodState {
+  VodStateLive
+  VodStateQueued
+  VodStateProcessing
+  VodStateReady
+  VodStateStorage
+  VodStateFailed
+  VodStateCanceled
+}
+
+enum VodVisibility {
+  VodVisibilityPublic
+  VodVisibilityUnlisted
+  VodVisibilityPrivate
+  VodVisibilityDeleted
+}
+
+extend type Query {
+  vod(id: String!): Vod
+  vods(user_id: String!): [Vod!]
+}
