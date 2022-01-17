@@ -129,6 +129,16 @@ type Config struct {
 	TwitchChat struct {
 		Enabled bool `mapstructure:"enabled" json:"enabled"`
 	} `mapstructure:"twitch_chat" json:"twitch_chat"`
+
+	Twitch struct {
+		ClientID     string `mapstructure:"client_id" json:"client_id"`
+		ClientSecret string `mapstructure:"client_secret" json:"client_secret"`
+		RedirectURL  string `mapstructure:"redirect_url" json:"redirect_url"`
+		Webhook      struct {
+			Secret      string `mapstructure:"secret" json:"secret"`
+			CallbackURL string `mapstructure:"callback_url" json:"callback_url"`
+		} `mapstructure:"webhook" json:"webhook"`
+	} `mapstructure:"twitch" json:"twitch"`
 }
 
 type KeyValue struct {

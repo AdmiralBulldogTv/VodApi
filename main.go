@@ -19,7 +19,7 @@ import (
 	"github.com/AdmiralBulldogTv/VodApi/src/svc/prometheus"
 	"github.com/AdmiralBulldogTv/VodApi/src/svc/redis"
 	"github.com/AdmiralBulldogTv/VodApi/src/svc/rmq"
-	"github.com/AdmiralBulldogTv/VodApi/src/twitch"
+	"github.com/AdmiralBulldogTv/VodApi/src/twitch_chat"
 
 	"github.com/bugsnag/panicwrap"
 	"github.com/sirupsen/logrus"
@@ -131,7 +131,7 @@ func main() {
 		dones = append(dones, monitoring.New(gCtx))
 	}
 	if gCtx.Config().TwitchChat.Enabled {
-		dones = append(dones, twitch.New(gCtx))
+		dones = append(dones, twitch_chat.New(gCtx))
 	}
 
 	logrus.Info("running")

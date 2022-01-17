@@ -55,7 +55,7 @@ func (r *Resolver) Vods(ctx context.Context, obj *model.User, limit int, page in
 	}
 
 	if len(timeFilter) != 0 {
-		filter["created_at"] = timeFilter
+		filter["started_at"] = timeFilter
 	}
 
 	cur, err := r.Ctx.Inst().Mongo.Collection(mongo.CollectionNameVods).Find(ctx, filter, options.Find().SetLimit(int64(limit)).SetSkip(int64(page)*int64(limit)))

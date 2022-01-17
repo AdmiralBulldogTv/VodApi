@@ -2,7 +2,6 @@ package api
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/errcode"
@@ -83,7 +82,7 @@ func statusFor(errs gqlerror.List) int {
 		}
 		return fasthttp.StatusBadRequest
 	default:
-		return http.StatusOK
+		return fasthttp.StatusOK
 	}
 }
 
@@ -127,7 +126,7 @@ func (s *Wrapper) Process(ctx context.Context, params graphql.RawParams) (resp R
 			resp = Response{
 				Message: "internal server error",
 				ReturnSignal: ReturnSignal{
-					Status:   500,
+					Status:   fasthttp.StatusInternalServerError,
 					Response: &graphql.Response{Errors: []*gqlerror.Error{err}},
 				},
 			}
