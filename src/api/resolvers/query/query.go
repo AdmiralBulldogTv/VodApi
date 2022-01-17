@@ -27,12 +27,7 @@ func New(r types.Resolver) generated.QueryResolver {
 	}
 }
 
-func (r *Resolver) Vod(ctx context.Context, id string) (*model.Vod, error) {
-	vID, err := primitive.ObjectIDFromHex(id)
-	if err != nil {
-		return nil, helpers.ErrBadObjectID
-	}
-
+func (r *Resolver) Vod(ctx context.Context, vID primitive.ObjectID) (*model.Vod, error) {
 	vod, err := loaders.For(ctx).VodLoader.Load(vID)
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
@@ -45,12 +40,7 @@ func (r *Resolver) Vod(ctx context.Context, id string) (*model.Vod, error) {
 	return vod, nil
 }
 
-func (r *Resolver) Vods(ctx context.Context, userID string) ([]*model.Vod, error) {
-	uID, err := primitive.ObjectIDFromHex(userID)
-	if err != nil {
-		return nil, helpers.ErrBadObjectID
-	}
-
+func (r *Resolver) Vods(ctx context.Context, uID primitive.ObjectID) ([]*model.Vod, error) {
 	vods, err := loaders.For(ctx).VodsByUserIDLoader.Load(uID)
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
@@ -63,12 +53,7 @@ func (r *Resolver) Vods(ctx context.Context, userID string) ([]*model.Vod, error
 	return vods, nil
 }
 
-func (r *Resolver) User(ctx context.Context, id string) (*model.User, error) {
-	uID, err := primitive.ObjectIDFromHex(id)
-	if err != nil {
-		return nil, helpers.ErrBadObjectID
-	}
-
+func (r *Resolver) User(ctx context.Context, uID primitive.ObjectID) (*model.User, error) {
 	user, err := loaders.For(ctx).UserLoader.Load(uID)
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
@@ -81,8 +66,7 @@ func (r *Resolver) User(ctx context.Context, id string) (*model.User, error) {
 	return user, nil
 }
 
-func (r *Resolver) Messages(ctx context.Context, vodID string, limit int, page int, after time.Time, before time.Time) ([]*model.Chat, error) {
-	vID, _ := primitive.ObjectIDFromHex(vodID)
+func (r *Resolver) Messages(ctx context.Context, vID primitive.ObjectID, limit int, page int, after time.Time, before time.Time) ([]*model.Chat, error) {
 	filter := bson.M{
 		"vod_id": vID,
 		"timestamp": bson.M{

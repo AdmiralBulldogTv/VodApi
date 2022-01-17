@@ -15,7 +15,7 @@ type User struct {
 
 func (u User) ToModel() *model.User {
 	return &model.User{
-		ID:     u.ID.Hex(),
+		ID:     u.ID,
 		Twitch: u.Twitch.ToModel(),
 	}
 }

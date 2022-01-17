@@ -33,7 +33,7 @@ func (c Chat) ToModel() *model.Chat {
 	}
 
 	return &model.Chat{
-		ID:        c.ID.Hex(),
+		ID:        c.ID,
 		Twitch:    c.Twitch.ToModel(),
 		Timestamp: c.Timestamp,
 		Content:   c.Content,

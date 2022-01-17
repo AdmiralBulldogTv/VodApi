@@ -1,5 +1,5 @@
 type Chat {
-  id: String!
+  id: ObjectID!
   twitch: ChatTwitch!
   timestamp: Time!
   content: String!
@@ -26,7 +26,7 @@ type ChatEmote {
 
 extend type Query {
   messages(
-    vod_id: String!
+    vod_id: ObjectID!
     limit: Int!
     page: Int!
     after: Time!

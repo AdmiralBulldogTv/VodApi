@@ -7,7 +7,6 @@ import (
 	"github.com/AdmiralBulldogTv/VodApi/graph/model"
 	"github.com/AdmiralBulldogTv/VodApi/src/api/loaders"
 	"github.com/AdmiralBulldogTv/VodApi/src/api/types"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type Resolver struct {
@@ -19,6 +18,5 @@ func New(r types.Resolver) generated.VodResolver {
 }
 
 func (r *Resolver) User(ctx context.Context, obj *model.Vod) (*model.User, error) {
-	uid, _ := primitive.ObjectIDFromHex(obj.UserID)
-	return loaders.For(ctx).UserLoader.Load(uid)
+	return loaders.For(ctx).UserLoader.Load(obj.UserID)
 }

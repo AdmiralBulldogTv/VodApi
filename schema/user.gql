@@ -1,5 +1,5 @@
 type User {
-  id: String!
+  id: ObjectID!
   twitch: UserTwitch!
 
   vods(
@@ -19,5 +19,5 @@ type UserTwitch {
 }
 
 extend type Query {
-  user(id: String!): User
+  user(id: ObjectID!): User
 }

@@ -38,8 +38,8 @@ func (v Vod) ToModel() *model.Vod {
 		endedAt = &v.EndedAt
 	}
 	return &model.Vod{
-		ID:            v.ID.Hex(),
-		UserID:        v.UserID.Hex(),
+		ID:            v.ID,
+		UserID:        v.UserID,
 		Title:         v.Title,
 		Category:      categories,
 		Variants:      variants,

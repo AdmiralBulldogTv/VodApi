@@ -12,7 +12,6 @@ import (
 	"github.com/AdmiralBulldogTv/VodApi/src/svc/mongo"
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
@@ -27,9 +26,8 @@ func New(r types.Resolver) generated.UserResolver {
 }
 
 func (r *Resolver) Vods(ctx context.Context, obj *model.User, limit int, page int, search *string, after *time.Time, before *time.Time) ([]*model.Vod, error) {
-	uID, _ := primitive.ObjectIDFromHex(obj.ID)
 	filter := bson.M{
-		"user_id": uID,
+		"user_id": obj.ID,
 	}
 	if limit <= 0 {
 		limit = 50
