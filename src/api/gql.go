@@ -84,7 +84,7 @@ func GqlHandler(gCtx global.Context) func(ctx *fasthttp.RequestCtx) {
 
 		ctx.SetStatusCode(result.Status)
 		ctx.SetContentType("application/json")
-		data, _ := json.Marshal(result)
+		data, _ := json.Marshal(result.Response)
 		ctx.SetBody(data)
 	}
 }
