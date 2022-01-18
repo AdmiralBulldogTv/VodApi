@@ -1,5 +1,6 @@
 type Chat {
   id: ObjectID!
+  vod_id: ObjectID!
   twitch: ChatTwitch!
   timestamp: Time!
   content: String!
@@ -9,6 +10,7 @@ type Chat {
 
 type ChatTwitch {
   id: String!
+  user_id: String!
   login: String!
   display_name: String!
   color: String!

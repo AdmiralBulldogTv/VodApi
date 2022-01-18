@@ -34,6 +34,7 @@ func (c Chat) ToModel() *model.Chat {
 
 	return &model.Chat{
 		ID:        c.ID,
+		VodID:     c.VodID,
 		Twitch:    c.Twitch.ToModel(),
 		Timestamp: c.Timestamp,
 		Content:   c.Content,
@@ -53,6 +54,7 @@ type ChatTwitch struct {
 func (c ChatTwitch) ToModel() *model.ChatTwitch {
 	return &model.ChatTwitch{
 		ID:          c.ID,
+		UserID:      c.UserID,
 		Login:       c.Login,
 		DisplayName: c.DisplayName,
 		Color:       c.Color,
