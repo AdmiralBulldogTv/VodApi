@@ -58,7 +58,9 @@ func (r *Resolver) Vods(ctx context.Context, obj *model.User, limit int, page in
 		filter["started_at"] = timeFilter
 	}
 
-	cur, err := r.Ctx.Inst().Mongo.Collection(mongo.CollectionNameVods).Find(ctx, filter, options.Find().SetLimit(int64(limit)).SetSkip(int64(page)*int64(limit)))
+	cur, err := r.Ctx.Inst().Mongo.Collection(mongo.CollectionNameVods).Find(ctx, filter, options.Find().SetLimit(int64(limit)).SetSkip(int64(page)*int64(limit)).SetSort(bson.M{
+		"_id": -1,
+	}))
 	dbVods := []structures.Vod{}
 	if err == nil {
 		err = cur.All(ctx, &dbVods)

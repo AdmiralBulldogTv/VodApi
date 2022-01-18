@@ -71,7 +71,9 @@ func (r *Resolver) Messages(ctx context.Context, vID primitive.ObjectID, limit i
 		page = 0
 	}
 
-	cur, err := r.Ctx.Inst().Mongo.Collection(mongo.CollectionNameChat).Find(ctx, filter, options.Find().SetLimit(int64(limit)).SetSkip(int64(page)*int64(limit)))
+	cur, err := r.Ctx.Inst().Mongo.Collection(mongo.CollectionNameChat).Find(ctx, filter, options.Find().SetLimit(int64(limit)).SetSkip(int64(page)*int64(limit)).SetSort(bson.M{
+		"_id": 1,
+	}))
 	dbChat := []structures.Chat{}
 	if err == nil {
 		err = cur.All(ctx, &dbChat)
@@ -122,7 +124,9 @@ func (r *Resolver) Vods(ctx context.Context, userID primitive.ObjectID, limit in
 		filter["started_at"] = timeFilter
 	}
 
-	cur, err := r.Ctx.Inst().Mongo.Collection(mongo.CollectionNameVods).Find(ctx, filter, options.Find().SetLimit(int64(limit)).SetSkip(int64(page)*int64(limit)))
+	cur, err := r.Ctx.Inst().Mongo.Collection(mongo.CollectionNameVods).Find(ctx, filter, options.Find().SetLimit(int64(limit)).SetSkip(int64(page)*int64(limit)).SetSort(bson.M{
+		"_id": -1,
+	}))
 	dbVods := []structures.Vod{}
 	if err == nil {
 		err = cur.All(ctx, &dbVods)

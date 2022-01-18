@@ -1,6 +1,7 @@
 package api
 
 import (
+	"bytes"
 	"context"
 	"net/url"
 	"time"
@@ -70,16 +71,21 @@ func GqlHandler(gCtx global.Context) func(ctx *fasthttp.RequestCtx) {
 				ctx.SetStatusCode(400)
 				return
 			}
+			data, _ := json.Marshal(req)
+			ctx.Request.SetBody(data)
 		case "POST":
-			if err := json.Unmarshal(ctx.Request.Body(), &req); err != nil {
-				ctx.SetStatusCode(400)
-				return
-			}
 		case "OPTIONS":
 			ctx.SetStatusCode(204)
 			return
 		default:
 			ctx.SetStatusCode(fasthttp.StatusMethodNotAllowed)
+			return
+		}
+
+		decoder := json.NewDecoder(bytes.NewReader(ctx.Request.Body()))
+		decoder.UseNumber()
+		if err := decoder.Decode(&req); err != nil {
+			ctx.SetStatusCode(400)
 			return
 		}
 
