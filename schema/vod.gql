@@ -2,7 +2,7 @@ type Vod {
   id: ObjectID!
   user_id: ObjectID!
   title: String!
-  category: [VodCategory!]!
+  categories: [VodCategory!]!
   vod_state: VodState!
   vod_visibility: VodVisibility!
   variants: [VodVariant!]!
@@ -47,5 +47,4 @@ enum VodVisibility {
 
 extend type Query {
   vod(id: ObjectID!): Vod
-  vods(user_id: ObjectID!): [Vod!]
 }

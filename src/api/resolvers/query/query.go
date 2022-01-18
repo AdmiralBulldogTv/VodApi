@@ -40,19 +40,6 @@ func (r *Resolver) Vod(ctx context.Context, vID primitive.ObjectID) (*model.Vod,
 	return vod, nil
 }
 
-func (r *Resolver) Vods(ctx context.Context, uID primitive.ObjectID) ([]*model.Vod, error) {
-	vods, err := loaders.For(ctx).VodsByUserIDLoader.Load(uID)
-	if err != nil {
-		if err == mongo.ErrNoDocuments {
-			return nil, nil
-		}
-
-		return nil, err
-	}
-
-	return vods, nil
-}
-
 func (r *Resolver) User(ctx context.Context, uID primitive.ObjectID) (*model.User, error) {
 	user, err := loaders.For(ctx).UserLoader.Load(uID)
 	if err != nil {

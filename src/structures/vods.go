@@ -41,7 +41,7 @@ func (v Vod) ToModel() *model.Vod {
 		ID:            v.ID,
 		UserID:        v.UserID,
 		Title:         v.Title,
-		Category:      categories,
+		Categories:    categories,
 		Variants:      variants,
 		VodState:      v.State.ToModel(),
 		VodVisibility: v.Visibility.ToModel(),
