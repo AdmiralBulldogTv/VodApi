@@ -139,6 +139,8 @@ func New(gCtx global.Context) *Loaders {
 				for i, v := range keys {
 					if user, ok := mp[v]; ok {
 						users[i] = user.ToModel()
+					} else {
+						errs[i] = mongo.ErrNoDocuments
 					}
 				}
 

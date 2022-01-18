@@ -10,7 +10,7 @@ import (
 
 func MarshalObjectID(id primitive.ObjectID) graphql.Marshaler {
 	return graphql.WriterFunc(func(w io.Writer) {
-		_, _ = w.Write([]byte(id.Hex()))
+		_, _ = w.Write([]byte(fmt.Sprintf(`"%s"`, id.Hex())))
 	})
 }
 
