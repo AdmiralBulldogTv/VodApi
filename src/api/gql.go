@@ -58,6 +58,11 @@ func GqlHandler(gCtx global.Context) func(ctx *fasthttp.RequestCtx) {
 
 	return func(ctx *fasthttp.RequestCtx) {
 		req := gqlRequest{}
+		ctx.Response.Header.Set("Access-Control-Allow-Origin", "*")
+		ctx.Response.Header.Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+		ctx.Response.Header.Set("Access-Control-Allow-Headers", "Content-Type")
+		ctx.Response.Header.Set("Access-Control-Max-Age", "86400")
+
 		switch utils.B2S(ctx.Method()) {
 		case "GET":
 			query, _ := url.ParseQuery(ctx.QueryArgs().String())
@@ -70,6 +75,9 @@ func GqlHandler(gCtx global.Context) func(ctx *fasthttp.RequestCtx) {
 				ctx.SetStatusCode(400)
 				return
 			}
+		case "OPTIONS":
+			ctx.SetStatusCode(204)
+			return
 		default:
 			ctx.SetStatusCode(fasthttp.StatusMethodNotAllowed)
 			return
