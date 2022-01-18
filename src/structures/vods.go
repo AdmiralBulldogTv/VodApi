@@ -20,6 +20,11 @@ type Vod struct {
 
 	Variants []VodVariant `json:"variants" bson:"variants"`
 
+	Thumbnail struct {
+		Static   string `json:"static" bson:"static"`
+		Animated string `json:"animated" bson:"animated"`
+	} `json:"thumbnail" bson:"thumbnail"`
+
 	StartedAt time.Time `json:"started_at" bson:"started_at"`
 	EndedAt   time.Time `json:"ended_at" bson:"ended_at"`
 }
@@ -38,15 +43,19 @@ func (v Vod) ToModel() *model.Vod {
 		endedAt = &v.EndedAt
 	}
 	return &model.Vod{
-		ID:            v.ID,
-		UserID:        v.UserID,
-		Title:         v.Title,
-		Categories:    categories,
-		Variants:      variants,
-		VodState:      v.State.ToModel(),
-		VodVisibility: v.Visibility.ToModel(),
-		StartedAt:     v.StartedAt,
-		EndedAt:       endedAt,
+		ID:         v.ID,
+		UserID:     v.UserID,
+		Title:      v.Title,
+		Categories: categories,
+		Variants:   variants,
+		Thumbnails: &model.VodThumbnails{
+			Static:   v.Thumbnail.Static,
+			Animated: v.Thumbnail.Animated,
+		},
+		State:      v.State.ToModel(),
+		Visibility: v.Visibility.ToModel(),
+		StartedAt:  v.StartedAt,
+		EndedAt:    endedAt,
 	}
 }
 
@@ -81,19 +90,19 @@ const (
 func (v VodState) ToModel() model.VodState {
 	switch v {
 	case VodStateLive:
-		return model.VodStateVodStateLive
+		return model.VodStateLive
 	case VodStateQueued:
-		return model.VodStateVodStateQueued
+		return model.VodStateQueued
 	case VodStateProcessing:
-		return model.VodStateVodStateProcessing
+		return model.VodStateProcessing
 	case VodStateReady:
-		return model.VodStateVodStateReady
+		return model.VodStateReady
 	case VodStateStorage:
-		return model.VodStateVodStateStorage
+		return model.VodStateStorage
 	case VodStateFailed:
-		return model.VodStateVodStateFailed
+		return model.VodStateFailed
 	case VodStateCanceled:
-		return model.VodStateVodStateCanceled
+		return model.VodStateCanceled
 	}
 
 	return "unknown"
@@ -103,21 +112,15 @@ type VodVisibility int32
 
 const (
 	VodVisibilityPublic VodVisibility = iota
-	VodVisibilityUnlisted
-	VodVisibilityPrivate
 	VodVisibilityDeleted
 )
 
 func (v VodVisibility) ToModel() model.VodVisibility {
 	switch v {
 	case VodVisibilityPublic:
-		return model.VodVisibilityVodVisibilityPublic
-	case VodVisibilityUnlisted:
-		return model.VodVisibilityVodVisibilityUnlisted
-	case VodVisibilityPrivate:
-		return model.VodVisibilityVodVisibilityPrivate
+		return model.VodVisibilityPublic
 	case VodVisibilityDeleted:
-		return model.VodVisibilityVodVisibilityDeleted
+		return model.VodVisibilityDeleted
 	}
 
 	return "unknown"

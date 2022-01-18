@@ -3,13 +3,19 @@ type Vod {
   user_id: ObjectID!
   title: String!
   categories: [VodCategory!]!
-  vod_state: VodState!
-  vod_visibility: VodVisibility!
+  state: VodState!
+  visibility: VodVisibility!
   variants: [VodVariant!]!
   started_at: Time!
   ended_at: Time
+  thumbnails: VodThumbnails!
 
   user: User! @goField(forceResolver: true)
+}
+
+type VodThumbnails {
+  static: String!
+  animated: String!
 }
 
 type VodCategory {
@@ -29,22 +35,28 @@ type VodVariant {
 }
 
 enum VodState {
-  VodStateLive
-  VodStateQueued
-  VodStateProcessing
-  VodStateReady
-  VodStateStorage
-  VodStateFailed
-  VodStateCanceled
+  Live
+  Queued
+  Processing
+  Ready
+  Storage
+  Failed
+  Canceled
 }
 
 enum VodVisibility {
-  VodVisibilityPublic
-  VodVisibilityUnlisted
-  VodVisibilityPrivate
-  VodVisibilityDeleted
+  Public
+  Deleted
 }
 
 extend type Query {
   vod(id: ObjectID!): Vod
+  vods(
+    user_id: ObjectID!
+    limit: Int!
+    page: Int!
+    search: String
+    after: Time
+    before: Time
+  ): [Vod!]
 }
