@@ -29,8 +29,8 @@ deps: go_installs
 	yarn
 
 build_deps:
-	go install github.com/99designs/gqlgen@latest
-	go install github.com/vektah/dataloaden@latest
+	go install github.com/99designs/gqlgen@v0.15.1
+	go install github.com/seventv/dataloaden@cc5ac4900
 
 go_installs: build_deps
 	go install honnef.co/go/tools/cmd/staticcheck@latest
