@@ -81,7 +81,8 @@ type ChatEmote struct {
 
 func (c ChatEmote) ToModel() *model.ChatEmote {
 	return &model.ChatEmote{
-		Name: c.Name,
-		Urls: c.URLs,
+		Name:      c.Name,
+		ZeroWidth: c.ZeroWidth,
+		Urls:      c.URLs,
 	}
 }

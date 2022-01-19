@@ -23,6 +23,7 @@ type ChatBadge {
 
 type ChatEmote {
   name: String!
+  zero_width: Boolean!
   urls: [String!]!
 }
 
