@@ -166,7 +166,7 @@ func New(gCtx global.Context) <-chan struct{} {
 			})
 		}
 
-		if message.User.Badges["mod"] != 0 {
+		if message.User.Badges["moderator"] != 0 {
 			badges = append(badges, structures.ChatBadge{
 				Name: "Moderator",
 				URLs: []string{
@@ -221,8 +221,9 @@ func New(gCtx global.Context) <-chan struct{} {
 		for _, v := range splits {
 			if e, ok := emoteMp[v]; ok {
 				emotes[v] = structures.ChatEmote{
-					Name: v,
-					URLs: e.URLs,
+					Name:      v,
+					URLs:      e.URLs,
+					ZeroWidth: e.ZeroWidth,
 				}
 			}
 		}

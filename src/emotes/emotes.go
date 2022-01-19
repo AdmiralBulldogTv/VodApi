@@ -349,7 +349,8 @@ func Get7TV(gCtx global.Context, ctx context.Context, id string) ([]Emote, error
 				fmt.Sprintf("https://cdn.7tv.app/emotes/%s/3x", v.ID),
 				fmt.Sprintf("https://cdn.7tv.app/emotes/%s/4x", v.ID),
 			},
-			Provider: EmoteProvider7TV,
+			ZeroWidth: v.Visibility&128 != 0,
+			Provider:  EmoteProvider7TV,
 		})
 	}
 

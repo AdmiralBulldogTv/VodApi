@@ -74,8 +74,9 @@ func (c ChatBadge) ToModel() *model.ChatBadge {
 }
 
 type ChatEmote struct {
-	Name string   `json:"name" bson:"name"`
-	URLs []string `json:"urls" bson:"urls"`
+	Name      string   `json:"name" bson:"name"`
+	ZeroWidth bool     `json:"zero_width" bson:"zero_width"`
+	URLs      []string `json:"urls" bson:"urls"`
 }
 
 func (c ChatEmote) ToModel() *model.ChatEmote {
